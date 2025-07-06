@@ -49,6 +49,7 @@ function Write-SectionSuccess {
     Write-Host -ForegroundColor Green $Message
 }
 #endregion
+
 #region Define Windows OS and Version
 $ScriptName = 'Ensemble_Health_Partners_OSDCloud'
 $ScriptVersion = '25.07.05.1'
@@ -72,9 +73,9 @@ $Global:MyOSDCloud = [ordered]@{
     Restart = [bool]$False
     RecoveryPartition = [bool]$true
     OEMActivation = [bool]$False
-    WindowsUpdate = [bool]$False
+    WindowsUpdate = [bool]$true
     WindowsUpdateDrivers = [bool]$False
-    WindowsDefenderUpdate = [bool]$False
+    WindowsDefenderUpdate = [bool]$true
     SetTimeZone = [bool]$true
     ClearDiskConfirm = [bool]$False
     ShutdownSetupComplete = [bool]$False
@@ -93,8 +94,8 @@ Write-Output $Global:MyOSDCloud
 
 Write-SectionHeader -Message "Starting OSDCloud"
 write-host "Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage"
-#endre
-gion
+#endregion
+
 #region Start OSDCloud
 Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
 #endregion
