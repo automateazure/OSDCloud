@@ -51,7 +51,7 @@ function Write-SectionSuccess {
 #endregion
 
 #region Define Windows OS and Version
-$ScriptName = 'Ensemble_Health_Partners_OSDCloud'
+$ScriptName = 'OSDCloud Deployment Script'
 $ScriptVersion = '25.07.05.1'
 Write-Host -ForegroundColor Green "$ScriptName $ScriptVersion"
 
