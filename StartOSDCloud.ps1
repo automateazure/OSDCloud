@@ -52,7 +52,7 @@ function Write-SectionSuccess {
 
 #region Define Windows OS and Version
 $ScriptName = 'OSDCloud Deployment Script'
-$ScriptVersion = '25.07.05.1'
+$ScriptVersion = '25.08.05.2'
 Write-Host -ForegroundColor Green "$ScriptName $ScriptVersion"
 
 #Variables to define the Windows OS / Edition etc to be applied during OSDCloud
@@ -60,8 +60,8 @@ $Product = (Get-MyComputerProduct)
 $Model = (Get-MyComputerModel)
 $Manufacturer = (Get-CimInstance -ClassName Win32_ComputerSystem).Manufacturer
 $OSVersion = 'Windows 11'
-$OSReleaseID = '23H2'
-$OSName = 'Windows 11 23H2 x64'
+$OSReleaseID = '24H2'
+$OSName = 'Windows 11 24H2 x64'
 $OSEdition = 'Pro'
 $OSActivation = 'Retail'
 $OSLanguage = 'en-us'
