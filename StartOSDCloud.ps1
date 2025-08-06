@@ -1,3 +1,29 @@
+<#
+.SYNOPSIS
+    Automates the OSDCloud deployment process for Windows 11 24H2 with custom configuration and post-deployment actions.
+
+.DESCRIPTION
+    This script initializes logging functions, sets up OSDCloud deployment variables, determines the target Windows OS version and edition, and configures deployment options.
+    It retrieves the appropriate driver pack for the detected hardware, starts the OSDCloud deployment, copies a custom unattend.xml to skip OOBE, and reboots the system upon completion.
+
+.PARAMETER None
+    This script does not accept parameters; all configuration is handled within the script.
+
+.FUNCTIONS
+    Write-DarkGrayDate      - Writes a timestamped message in dark gray.
+    Write-DarkGrayHost      - Writes a message in dark gray.
+    Write-DarkGrayLine      - Writes a separator line in dark gray.
+    Write-SectionHeader     - Writes a section header with timestamp and cyan message.
+    Write-SectionSuccess    - Writes a success message in green with timestamp.
+
+.NOTES
+    File Name      : StartOSDCloud.ps1
+    Script Name    : OSDCloud Deployment Script
+    Script Version : 25.08.05.2
+    Author         : [Brian Brito]
+    Purpose        : Streamline and automate OSDCloud deployments with custom settings and post-install actions.
+
+#>
 #region Initialization
 function Write-DarkGrayDate {
     [CmdletBinding()]
@@ -49,7 +75,6 @@ function Write-SectionSuccess {
     Write-Host -ForegroundColor Green $Message
 }
 #endregion
-
 #region Define Windows OS and Version
 $ScriptName = 'OSDCloud Deployment Script'
 $ScriptVersion = '25.08.05.2'
@@ -67,7 +92,7 @@ $OSActivation = 'Retail'
 $OSLanguage = 'en-us'
 #endregion
 
-#region Define Global OSDCloud Variables $Global:MyOSDCloud
+#Define Global OSDCloud Variables $Global:MyOSDCloud
 #Set OSDCloud Vars
 $Global:MyOSDCloud = [ordered]@{
     Restart = [bool]$False
@@ -93,13 +118,10 @@ Write-SectionHeader "OSDCloud Variables"
 Write-Output $Global:MyOSDCloud
 
 Write-SectionHeader -Message "Starting OSDCloud"
-write-host "Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage"
-#endregion
-
+Write-Host "Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage"
 #region Start OSDCloud
 Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
 #endregion
-
 #region Copy unattend.xml to C:\Windows\Panther to skip OOBE
 # Copy unattend.xml to Panther folder
 $UnattendSource = "$PSScriptRoot\\unattend.xml"
