@@ -18,14 +18,30 @@
 
 .NOTES
     File Name      : StartOSDCloud.ps1
-    Script Name    : OSDCloud
-    Script Version : 08.08.25.3
-    Author         : [Brian Brito]
+    Script Name    : Ensemble_Health_Partners_OSDCloud
+    Script Version : 08.09.25.3
+    Author         : [Brian Brito @ Ensemble Health Partners]
     Purpose        : Streamline and automate OSDCloud deployments with custom settings and post-install actions.
 
 #>
 
 #region Initialization
+###############################################################
+# Set accurate system time from internet time server
+###############################################################
+$TimeServerUrl = "time.google.com"
+try {
+    $DateHeader = (Invoke-WebRequest -Uri $TimeServerUrl -UseBasicParsing).Headers.Date
+    if ($DateHeader) {
+        $ParsedDate = [DateTime]::ParseExact($DateHeader, 'ddd, dd MMM yyyy HH:mm:ss ''GMT''', $null)
+        Set-Date -Date $ParsedDate
+            Write-Host "System time synchronized from $TimeServerUrl $ParsedDate - GMT"
+    } else {
+            Write-Host "No Date header received from $TimeServerUrl. System time not updated."
+    }
+} catch {
+        Write-Host "Failed to synchronize system time from $TimeServerUrl - GMT"
+}
 function Write-DarkGrayDate {
     [CmdletBinding()]
     param (
@@ -77,7 +93,7 @@ function Write-SectionSuccess {
 }
 #endregion
 #region Define Windows OS and Version
-$ScriptName = 'OSDCloud'
+$ScriptName = 'Ensemble_Health_Partners_OSDCloud'
 $ScriptVersion = '08.09.25.3'
 Write-Host -ForegroundColor Green "$ScriptName $ScriptVersion"
 
