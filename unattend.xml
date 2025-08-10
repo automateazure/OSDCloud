@@ -15,6 +15,7 @@
         <SkipMachineOOBE>False</SkipMachineOOBE>
         <SkipUserOOBE>false</SkipUserOOBE>
       </OOBE>
+    <TimeZone>Eastern Standard Time</TimeZone>
     </component>
   </settings>
 </unattend>
