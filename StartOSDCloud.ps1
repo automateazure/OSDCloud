@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Automates the OSDCloud deployment process for Windows 11 24H2 with custom configuration and post-deployment actions.
+    Automates the OSDCloud deployment process for Windows 11 23H2 with custom configuration and post-deployment actions.
 
 .DESCRIPTION
     This script initializes logging functions, sets up OSDCloud deployment variables, determines the target Windows OS version and edition, and configures deployment options.
@@ -18,12 +18,13 @@
 
 .NOTES
     File Name      : StartOSDCloud.ps1
-    Script Name    : OSDCloud Deployment Script
-    Script Version : 25.08.05.2
+    Script Name    : OSDCloud
+    Script Version : 08.08.25.3
     Author         : [Brian Brito]
     Purpose        : Streamline and automate OSDCloud deployments with custom settings and post-install actions.
 
 #>
+
 #region Initialization
 function Write-DarkGrayDate {
     [CmdletBinding()]
@@ -76,8 +77,8 @@ function Write-SectionSuccess {
 }
 #endregion
 #region Define Windows OS and Version
-$ScriptName = 'OSDCloud Deployment Script'
-$ScriptVersion = '25.08.05.2'
+$ScriptName = 'OSDCloud'
+$ScriptVersion = '08.09.25.3'
 Write-Host -ForegroundColor Green "$ScriptName $ScriptVersion"
 
 #Variables to define the Windows OS / Edition etc to be applied during OSDCloud
@@ -85,23 +86,23 @@ $Product = (Get-MyComputerProduct)
 $Model = (Get-MyComputerModel)
 $Manufacturer = (Get-CimInstance -ClassName Win32_ComputerSystem).Manufacturer
 $OSVersion = 'Windows 11'
-$OSReleaseID = '24H2'
-$OSName = 'Windows 11 24H2 x64'
+$OSReleaseID = '23H2'
+$OSName = 'Windows 11 23H2 x64'
 $OSEdition = 'Pro'
 $OSActivation = 'Retail'
 $OSLanguage = 'en-us'
 #endregion
 
-#Define Global OSDCloud Variables $Global:MyOSDCloud
+#region Define Global OSDCloud Variables $Global:MyOSDCloud
 #Set OSDCloud Vars
 $Global:MyOSDCloud = [ordered]@{
     Restart = [bool]$False
     RecoveryPartition = [bool]$true
-    OEMActivation = [bool]$False
+    OEMActivation = [bool]$true
     WindowsUpdate = [bool]$true
     WindowsUpdateDrivers = [bool]$False
-    WindowsDefenderUpdate = [bool]$true
-    SetTimeZone = [bool]$true
+    WindowsDefenderUpdate = [bool]$False
+    SetTimeZone = [bool]$False
     ClearDiskConfirm = [bool]$False
     ShutdownSetupComplete = [bool]$False
     SyncMSUpCatDriverUSB = [bool]$true
@@ -122,6 +123,7 @@ Write-Host "Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $
 #region Start OSDCloud
 Start-OSDCloud -OSName $OSName -OSEdition $OSEdition -OSActivation $OSActivation -OSLanguage $OSLanguage
 #endregion
+
 #region Copy unattend.xml to C:\Windows\Panther to skip OOBE
 # Copy unattend.xml to Panther folder
 $UnattendSource = "$PSScriptRoot\\unattend.xml"
@@ -141,6 +143,6 @@ Write-SectionHeader -Message "OSDCloud Process Complete, Running Custom Actions 
 # Reboot into Windows
 Write-SectionHeader -Message "Rebooting into Windows in 10 seconds..."
 Start-Sleep 10
-# Restart
+# Initiate system reboot after deployment
 Restart-Computer
 #endregion
