@@ -18,9 +18,9 @@
 
 .NOTES
     File Name      : StartOSDCloud.ps1
-    Script Name    : Ensemble_Health_Partners_OSDCloud
+    Script Name    : Automate Azure OSDCloud Deployment
     Script Version : 08.09.25.3
-    Author         : [Brian Brito @ Ensemble Health Partners]
+    Author         : [Brian Brito]
     Purpose        : Streamline and automate OSDCloud deployments with custom settings and post-install actions.
 
 #>
@@ -93,7 +93,7 @@ function Write-SectionSuccess {
 }
 #endregion
 #region Define Windows OS and Version
-$ScriptName = 'Ensemble_Health_Partners_OSDCloud'
+$ScriptName = 'Automate Azure OSDCloud Deployment'
 $ScriptVersion = '08.09.25.3'
 Write-Host -ForegroundColor Green "$ScriptName $ScriptVersion"
 
