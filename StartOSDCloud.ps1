@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Automates the OSDCloud deployment process for Windows 11 23H2 with custom configuration and post-deployment actions.
+    Automates the OSDCloud deployment process for Windows 11 24H2 with custom configuration and post-deployment actions.
 
 .DESCRIPTION
     This script initializes logging functions, sets up OSDCloud deployment variables, determines the target Windows OS version and edition, and configures deployment options.
@@ -19,12 +19,11 @@
 .NOTES
     File Name      : StartOSDCloud.ps1
     Script Name    : Automate Azure OSDCloud Deployment
-    Script Version : 08.09.25.3
+    Script Version : 08.16.25.4
     Author         : [Brian Brito]
     Purpose        : Streamline and automate OSDCloud deployments with custom settings and post-install actions.
 
 #>
-
 #region Initialization
 ###############################################################
 # Set accurate system time from internet time server
@@ -94,7 +93,7 @@ function Write-SectionSuccess {
 #endregion
 #region Define Windows OS and Version
 $ScriptName = 'Automate Azure OSDCloud Deployment'
-$ScriptVersion = '08.09.25.3'
+$ScriptVersion = '08.16.25.4'
 Write-Host -ForegroundColor Green "$ScriptName $ScriptVersion"
 
 #Variables to define the Windows OS / Edition etc to be applied during OSDCloud
@@ -102,8 +101,8 @@ $Product = (Get-MyComputerProduct)
 $Model = (Get-MyComputerModel)
 $Manufacturer = (Get-CimInstance -ClassName Win32_ComputerSystem).Manufacturer
 $OSVersion = 'Windows 11'
-$OSReleaseID = '23H2'
-$OSName = 'Windows 11 23H2 x64'
+$OSReleaseID = '24H2'
+$OSName = 'Windows 11 24H2 x64'
 $OSEdition = 'Pro'
 $OSActivation = 'Retail'
 $OSLanguage = 'en-us'
